@@ -36,9 +36,9 @@ namespace CMP1903M_A01_2223
                 for (int x = 0; x < 50; x++)
                 {
                     int y = random.Next(x + 1);
-                    Card temp = _cards[x];
-                    _cards[x] = _cards[y];
-                    _cards[y] = temp;
+                    Card temp = pack[x];
+                    pack[x] = pack[y];
+                    pack[y] = temp;
                 }
             }
             else if (typeOfShuffle == 1)
@@ -47,11 +47,11 @@ namespace CMP1903M_A01_2223
                 List<Card> first = new List<Card>();
                 List<Card> second = new List<Card>();
 
-                first.AddRange(_cards.GetRange(0, 25));
+                first.AddRange(pack.GetRange(0, 25));
                 second.AddRange(second.GetRange(26, 51));
 
                 //empty pack
-                _cards.Clear();
+                pack.Clear();
 
                 //alternate adding cards back into pack from both halves
                 for (int x = 0;x < 50; x++)
@@ -59,13 +59,13 @@ namespace CMP1903M_A01_2223
                     bool flipFlop = false;
                     if (flipFlop == false)
                     {
-                        _cards.Add(first[0]);
+                        pack.Add(first[0]);
                         first.RemoveAt(0);
                         flipFlop = true;
                     }
                     else
                     {
-                        _cards.Add(second[0]);
+                        pack.Add(second[0]);
                         second.RemoveAt(0);
                         flipFlop = false;
                     }
@@ -79,11 +79,17 @@ namespace CMP1903M_A01_2223
         public static Card deal()
         {
             //Deals one card
+            Card card = pack[_i];
+            _i++;
+            return card
 
         }
         public static List<Card> dealCard(int amount)
         {
             //Deals the number of cards specified by 'amount'
+            List<Card> deal = Pack.GetRange(_i, amount);
+            _i += amount;
+            return deal;
         }
     }
 }
